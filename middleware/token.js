@@ -1,7 +1,5 @@
 import 'reflect-metadata';
-import {plainToClass, classToPlain } from 'class-transformer';
 import dotenv from 'dotenv';
-import {Router} from 'express';
 import { SignJWT, jwtVerify } from 'jose';
 
 
@@ -9,19 +7,14 @@ import { SignJWT, jwtVerify } from 'jose';
 dotenv.config("../");
 
 const tablas = {
-    "alarmas": "alarmas",
-    "clases_alarmas": "clases_alarmas",
-    "empresas": "empresas",
-    "mantenimientos":"mantenimientos",
-    "marcas":"marcas",
-    "modelos":"modelos",
-    "proveedores":"proveedores",
-    "registros_mantenimientos":"registros_mantenimientos",
-    "sucursales_proveedores":"sucursales_proveedores",
-    "vehiculos":"vehiculos"
+    "Cliente": "Cliente",
+    "Automovil": "Automovil",
+    "Sucursal": "Sucursal",
+    "Contrato":"Contrato",
+    "Registro":"Registro"
 }
 
-const tokenJWT = async(req,res)=>{
+const createToken = async(req,res)=>{
     if (tablas[req.query.tabla] === undefined){
         return res.status(406).send('Error al generar token, especifique una tabla válida')
     } 
@@ -35,7 +28,7 @@ const tokenJWT = async(req,res)=>{
     res.send(jwtConstructor);
 }
 
-validateJWT.use(async(req,res,next)=>{
+const validateToken = async(req,res,next)=>{
     const { authorization } = req.headers;
     if (!authorization) return res.status(404).send('Falta el token de autorización');
     try {
@@ -48,11 +41,13 @@ validateJWT.use(async(req,res,next)=>{
         req.payloadJWT = jwtData.payload; 
         next();
     } catch (error) {
+        console.error(error);
         res.status(401).send('No autorizado');
-        console.log(error);
+        
     }
-})
+}
+
 export {
-    tokenJWT,
-    validateJWT
+    createToken,
+    validateToken
 };

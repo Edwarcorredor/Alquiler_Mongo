@@ -1,8 +1,8 @@
-import {tokenJWT} from "../middleware/middleJWT.js";
+import { createToken } from '../middleware/token';
 import {Router} from 'express';
 const appJWT = Router();
 
-appJWT.get("/", tokenJWT, (req,res)=>{
+appJWT.get("/", createToken, (req,res)=>{
     res.send(req.data)
 });
 
