@@ -36,7 +36,7 @@ export class Clientes {
             try {
                 let db = yield conexion();
                 let cliente = db.collection("Cliente");
-                return yield cliente.find().toArray();
+                return cliente.find().toArray();
             }
             catch (error) {
                 throw { status: 500, message: "Error al obtener los registros de la tabla Cliente." };

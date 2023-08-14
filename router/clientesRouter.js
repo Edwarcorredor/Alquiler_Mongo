@@ -4,7 +4,7 @@ import middleClientes from '../middleware/middleClientes.js';
 const clientesRouter = Router();
 
 clientesRouter.get('/', limitGet(), middleClientes,async (req, res) => {
-    res.send(req.body.allTabla());
+    res.send(await req.body.allTabla());
 });
 
 export default clientesRouter;
