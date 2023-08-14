@@ -1,5 +1,5 @@
 // 2.
-use("AutosDB");
+use("db_campus_alquiler");
 db.Cliente.find();
 
 // 3.
