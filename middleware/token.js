@@ -7,11 +7,11 @@ import { SignJWT, jwtVerify } from 'jose';
 dotenv.config("../");
 
 const tablas = {
-    "Cliente": "Cliente",
-    "Automovil": "Automovil",
-    "Sucursal": "Sucursal",
-    "Contrato":"Contrato",
-    "Registro":"Registro"
+    "clientes": "clientes",
+    "automoviles": "automoviles",
+    "sucursales": "sucursales",
+    "contratos":"contratos",
+    "registros":"registros"
 }
 
 const createToken = async(req,res)=>{
