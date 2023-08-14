@@ -1,6 +1,6 @@
 import {Transform, Expose } from "class-transformer";
 import { IsDefined} from 'class-validator';
-import {conexion} from '../db/conexion_db.js';
+import {conexion} from '../db/atlas.js';
 
 export class Clientes{
     /**
@@ -107,25 +107,13 @@ export class Clientes{
     }
 
     set guardar(body:object){
-        conexion.query(/*sql*/`INSERT INTO Cliente SET ?`,
-        body,
-        (err, data, fields)=>{
-         console.log(err)
-         console.log(data)
-         console.log(fields)
-        });
+        
     }
 
 
 
-    get allTabla(){
-        const cox = conexion.promise();
-        return (async()=>{
-          const [rows, fields] = await cox.execute(/*sql*/`
-          SELECT * FROM Cliente
-          `);
-          return rows;
-        })();
+    get async allTabla(){
+        return "hola";
     }
 
 
