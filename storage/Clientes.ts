@@ -112,9 +112,14 @@ export class Clientes{
 
 
 
-    get async allTabla(){
-        return "hola";
+    async allTabla() {
+        try {
+            let db = await conexion();
+            let cliente = db.collection("Cliente");
+            return await cliente.find().toArray();
+        } catch (error) {
+            throw { status: 500, message: "Error al obtener los registros de la tabla Cliente." };
+        }
     }
-
 
 }

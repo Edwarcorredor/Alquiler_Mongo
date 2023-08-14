@@ -1,6 +1,5 @@
-import express from 'express';
 import 'reflect-metadata';
-import {plainToClass} from 'class-transformer';
+import {plainToInstance} from 'class-transformer';
 import {Clientes} from '../controller/Clientes.js'
 import {validate} from 'class-validator';
 
@@ -12,14 +11,14 @@ const middleClientes = async(req,res,next)=>{
             data = plainToInstance(Clientes, {}, { ignoreDecorators: true })
         }
         else{
-            data = plainToClass(Clientes, req.body, { excludeExtraneousValues: true });
+            data = plainToInstance(Clientes, req.body, { excludeExtraneousValues: true });
         }
         await validate(data);
         req.body = data;
         req.data = JSON.stringify(data);
         next();
     } catch (err) {
-        res.status(err.status).json(err)
+        res.status(err.status).json(err);
     }
 }
 
