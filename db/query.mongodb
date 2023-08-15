@@ -353,3 +353,34 @@ db.Empleado.insertMany([
     }
 ]);
 
+db.createCollection('Sucursal_Automovil');
+
+db.Sucursal_Automovil.insertMany([
+    {
+        ID_Sucursal: 1,
+        ID_Automovil: 1,
+        Cantidad_Disponible: 3
+    },
+    {
+        ID_Sucursal: 2,
+        ID_Automovil: 2,
+        Cantidad_Disponible: 5
+    },
+    {
+        ID_Sucursal: 3,
+        ID_Automovil: 3,
+        Cantidad_Disponible: 2
+    },
+    {
+        ID_Sucursal: 4,
+        ID_Automovil: 4,
+        Cantidad_Disponible: 4
+    },
+    {
+        ID_Sucursal: 5,
+        ID_Automovil: 5,
+        Cantidad_Disponible: 1
+    }
+]);
+
+

@@ -11,7 +11,8 @@ const tablas = {
     "automoviles": "automoviles",
     "sucursales": "sucursales",
     "contratos":"contratos",
-    "registros":"registros"
+    "registros":"registros",
+    "empleados": "empleados"
 }
 
 const createToken = async(req,res)=>{
