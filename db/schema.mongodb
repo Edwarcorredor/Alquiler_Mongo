@@ -22,7 +22,7 @@ db.getCollection("Alquiler").aggregate([
     $unset: 
       [
       "Fecha_Fin",
-      "Fecha_Inicio"
+      "Fecha_Inicio",
       ]    
   }  
   
