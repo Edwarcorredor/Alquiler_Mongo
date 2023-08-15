@@ -5,31 +5,35 @@ const automovilesRouter = Router();
 
 automovilesRouter.get('/disponible', limitPet(), async (req, res) => {
     let db = await conexion();
-    let resultado = await db.collection("Contrato").aggregate([
-      {
-          $match: { 
-              Estado: "Disponible", 
-          }
-      },
-      {
-          $lookup: {
-              from: "Automovil",
-              localField: "ID_Automovil",
-              foreignField: "ID",
-              as: "Automoviles"
-          }
-      },
-      {
-        $unwind : "$Automoviles"
-      },
-      {
-          $project: {
-              _id:0,
-              "Automoviles":1
-          }
-      }
-  ]).toArray();
-    res.send( resultado);  
+    let resultado = await db.collection("Alquiler").aggregate([
+        {
+            $match: { 
+                Estado: "Disponible", 
+            }
+        },
+        {
+            $lookup: {
+                from: "Automovil",
+                localField: "ID_Automovil",
+                foreignField: "_id",
+                as: "Automovil"
+            }
+        },
+        {
+            $unwind: "$Automovil" // Desenrollar el array "Automovil"
+        },
+        {
+            $unset: ["_id", "Estado", "ID_Cliente", "Fecha_Inicio", "Fecha_Fin", "Costo_Total","ID_Automovil" ] // Eliminar campos no deseados
+        },
+        {
+            $set: {
+                Automovil: "$Automovil" // Establecer el campo "Automovil" en el valor deseado
+            }
+        }
+    ]).toArray();
+    
+    res.send(resultado);  
 });
+
 
 export default automovilesRouter;

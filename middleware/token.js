@@ -8,11 +8,14 @@ dotenv.config("../");
 
 const tablas = {
     "clientes": "clientes",
+    "empleados": "empleados",
     "automoviles": "automoviles",
-    "sucursales": "sucursales",
-    "contratos":"contratos",
-    "registros":"registros",
-    "empleados": "empleados"
+    "sucursales":"sucursales",
+    "sucursales_automoviles":"sucursales_automoviles",
+    "alquileres": "alquileres",
+    "reservas": "reservas",
+    "registro_entregas": "registro_entregas",
+    "registro_devoluciones": "registro_devoluciones"
 }
 
 const createToken = async(req,res)=>{
