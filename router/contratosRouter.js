@@ -34,4 +34,46 @@ contratosRouter.get('/activo', limitPet(), async (req, res) => {
     res.send(resultado);
 });
 
+contratosRouter.get('/pendiente', limitPet(), async (req, res) => {
+  let db = await conexion();
+  let resultado = await db.collection("Contrato").aggregate([
+    {
+      $match: { 
+        Estado: "Pendiente",
+        Tipo: "Reserva" 
+      }
+    },
+    {
+      $lookup: {
+        from: "Cliente",
+        localField: "ID_Cliente",
+        foreignField: "ID",
+        as: "Clientes"
+      }
+    },
+    {
+      $lookup: {
+        from: "Automovil",
+        localField: "ID_Automovil",
+        foreignField: "ID",
+        as: "Automoviles"
+      }
+    },
+    {
+      $project: { 
+        _id: 0,
+        "Clientes": 1,
+        "Automoviles": 1
+      }
+    }
+  ]).toArray();
+  res.send(resultado);
+});
+
+contratosRouter.get('/:id', limitPet(), async (req, res) => {
+  let db = await conexion();
+  let resultado = await db.collection("Contrato").find({ID: parseInt(req.params.id)}).toArray();
+  res.send(resultado);
+});
+
 export default contratosRouter;
