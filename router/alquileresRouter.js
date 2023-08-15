@@ -32,4 +32,10 @@ alquileresRouter.get('/activo', limitPet(), async (req, res) => {
     res.send(resultado);
 });
 
+alquileresRouter.get('/:id', limitPet(), async (req, res) => {
+  let db = await conexion();
+  let resultado = await db.collection("Alquiler").find({_id: parseInt(req.params.id)}).toArray();
+  res.send(resultado);
+});
+
 export default alquileresRouter;
