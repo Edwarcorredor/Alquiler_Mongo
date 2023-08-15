@@ -3,7 +3,8 @@ import dotenv from 'dotenv';
 import appJWT from './router/JWT.js';
 import { validateToken } from './middleware/token.js';
 import clientesRouter from './router/clientesRouter.js';
-
+import automovilesRouter from './router/automovilesRouter.js';
+import contratosRouter from './router/contratosRouter.js';
 dotenv.config();
 const app = express();
 app.use(express.json());
@@ -11,9 +12,9 @@ app.use(express.json());
 app.use("/token", appJWT);
 
 app.use('/clientes', validateToken, clientesRouter);
-//app.use('/automoviles', validateToken, automovilesRouter); 
+app.use('/automoviles', validateToken, automovilesRouter); 
 //app.use('/sucursales', validateToken, reservasRouter);
-//app.use('/contratos', validateToken, empleadosRouter);
+app.use('/contratos', validateToken, contratosRouter);
 //app.use('/registros', validateToken, sucursalesAutomovilesRouter);
 
 let config = JSON.parse(process.env.MY_SERVER);
