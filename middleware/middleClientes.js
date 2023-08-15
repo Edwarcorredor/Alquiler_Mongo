@@ -15,7 +15,6 @@ const middleClientes = async(req,res,next)=>{
         }
         await validate(data);
         req.body = data;
-        req.data = JSON.stringify(data);
         next();
     } catch (err) {
         res.status(err.status).json(err);
