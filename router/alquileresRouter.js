@@ -57,5 +57,19 @@ alquileresRouter.get('/cantidad/total', limitPet(), async (req,res) => {
   res.send(result);
 });
 
+alquileresRouter.get('/fecha/inicio', limitPet(), async (req,res) => {
+  let db = await conexion();
+  let resultado = await db.collection("Alquiler").find({
+    Fecha_Inicio: {
+      $gte: new Date("2023-07-05"),
+      $lte: new Date("2023-07-10")
+    },
+  },
+  {
+    _id: 0
+  }).toArray();
+  res.send(resultado);
+});
+
 
 export default alquileresRouter;
