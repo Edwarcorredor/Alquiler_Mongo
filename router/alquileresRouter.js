@@ -50,5 +50,12 @@ alquileresRouter.get('/busqueda/fecha', limitPet(), async (req, res) => {
   res.send(resultado);
 })
 
+alquileresRouter.get('/cantidad/total', limitPet(), async (req,res) => {
+  let db = await conexion();
+  let resultado = await db.collection("Alquiler").countDocuments();
+  let result = `La cantidad de alquileres son ${resultado}`;
+  res.send(result);
+});
+
 
 export default alquileresRouter;
