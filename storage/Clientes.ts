@@ -106,8 +106,10 @@ export class Clientes{
         this.Email = p7;
     }
 
-    set guardar(body:object){
-        
+    async dniEspeci(DNII:string){
+        let db = await conexion();
+        let resultado = await db.collection("Cliente").find({DNI: DNII}).toArray();
+        return resultado;
     }
 
 

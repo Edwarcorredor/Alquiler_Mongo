@@ -29,7 +29,12 @@ export class Clientes {
         this.Telefono = p6;
         this.Email = p7;
     }
-    set guardar(body) {
+    dniEspeci(DNII) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let db = yield conexion();
+            let resultado = yield db.collection("Cliente").find({ DNI: DNII }).toArray();
+            return resultado;
+        });
     }
     allTabla() {
         return __awaiter(this, void 0, void 0, function* () {

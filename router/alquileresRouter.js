@@ -38,4 +38,10 @@ alquileresRouter.get('/:id', limitPet(), async (req, res) => {
   res.send(resultado);
 });
 
+alquileresRouter.get('/costo/:id', limitPet(), async (req, res) => {
+  let db = await conexion();
+  let resultado = await db.collection("Alquiler").find({_id: parseInt(req.params.id)},{ projection: { Costo_Total: 1 } }).toArray();
+  res.send(resultado);
+});
+
 export default alquileresRouter;
