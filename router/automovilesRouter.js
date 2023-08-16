@@ -47,5 +47,33 @@ automovilesRouter.get('/ordenado', limitPet(), async (req,res) => {
     res.send(resultado);
 });
 
+automovilesRouter.get('/cantidad', limitPet(), async (req,res) => {
+    let db = await conexion();
+    let resultado = await db.collection("Automovil").aggregate([
+        {
+          $lookup: {
+            from: "Alquiler",
+            localField: "_id",
+            foreignField: "ID_Automovil",
+            as: "Alquiler"
+          }
+        },
+        {
+          $match: { 
+            $and: [
+              { Capacidad: 5 },
+              { "Alquiler.Estado": "Disponible" }
+            ]
+          }
+        },
+        {
+            $unset:[
+                "Alquiler"
+            ]
+        }
+    ]).toArray();
+    res.send(resultado);
+});
+
 
 export default automovilesRouter;

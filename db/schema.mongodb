@@ -234,12 +234,6 @@ db.getCollection("Automovil").aggregate([
     }
   },
   {
-    $project: { 
-      _id: 0,
-      "Alquiler._id": 0
-    }
-  },
-  {
     $match: { 
       $and: [
         { Capacidad: 5 },
