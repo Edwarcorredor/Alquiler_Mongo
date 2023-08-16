@@ -40,4 +40,10 @@ reservasRouter.get('/pendiente', limitPet(), async (req, res) => {
     res.send(resultado);
 });
 
+reservasRouter.get('/cliente/:id', limitPet(), async (req, res) => {
+  let db = await conexion();
+  let resultado = await db.collection("Reserva").find({ID_Cliente: parseInt(req.params.id)}, {_id:0}).toArray();
+  res.send(resultado);
+});
+
 export default reservasRouter;
