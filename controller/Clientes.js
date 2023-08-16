@@ -48,6 +48,28 @@ export class Clientes {
             }
         });
     }
+    alquiler() {
+        return __awaiter(this, void 0, void 0, function* () {
+            let db = yield conexion();
+            let resultado = yield db.collection("Cliente").aggregate([
+                {
+                    $lookup: {
+                        from: "Alquiler",
+                        localField: "_id",
+                        foreignField: "ID_Cliente",
+                        as: "Alquiler"
+                    }
+                },
+                {
+                    $unset: [
+                        "_id",
+                        "Alquiler"
+                    ]
+                }
+            ]).toArray();
+            return resultado;
+        });
+    }
 }
 __decorate([
     Expose({ name: "CLIENTE_ID" }),

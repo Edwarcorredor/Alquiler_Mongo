@@ -11,4 +11,8 @@ clientesRouter.get('/:DNI', limitPet(), middleClientes, async (req, res) => {
     res.send(await req.body.dniEspeci(req.params.DNI));
 });
 
+clientesRouter.get('/alquiler/minimo', limitPet(), middleClientes, async (req, res) => {
+    res.send(await req.body.alquiler());
+});
+
 export default clientesRouter;

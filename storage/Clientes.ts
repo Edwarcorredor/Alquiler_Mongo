@@ -124,4 +124,25 @@ export class Clientes{
         }
     }
 
+    async alquiler(){
+        let db = await conexion();
+        let resultado = await db.collection("Cliente").aggregate([
+            {
+              $lookup: {
+                from: "Alquiler",
+                localField: "_id",
+                foreignField: "ID_Cliente",
+                as: "Alquiler"
+              }
+            },
+            {
+              $unset: [
+                "_id",
+                "Alquiler"
+            ]       
+            }
+          ]).toArray();
+        return resultado;
+    }
+
 }
