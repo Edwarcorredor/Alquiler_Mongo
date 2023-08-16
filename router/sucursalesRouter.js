@@ -10,4 +10,27 @@ sucursalesRouter.get('/', limitPet(), async (req, res) => {
     res.send(resultado);
 });
 
+sucursalesRouter.get('/cantidad', limitPet(), async (req, res) => {
+    let db = await conexion();
+    let resultado = await db.collection("SucursalAutomovil").aggregate([
+        {
+          $lookup: {
+            from: "Sucursal",
+            localField: "ID_Sucursal",
+            foreignField: "_id",
+            as: "Sucursal_Automovil"
+          }
+        }, 
+        {
+          $unset: 
+            [
+            "ID_Sucursal",
+            "ID_Automovil",
+            "_id",
+            ]    
+        }     
+    ]).toArray();
+    res.send(resultado);
+});
+
 export default sucursalesRouter;
