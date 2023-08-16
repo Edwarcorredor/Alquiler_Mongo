@@ -46,4 +46,24 @@ reservasRouter.get('/cliente/:id', limitPet(), async (req, res) => {
   res.send(resultado);
 });
 
+reservasRouter.get('/reserva/:id', limitPet(), async (req, res) => {
+  let db = await conexion();
+  let resultado = await db.collection("Reserva").aggregate([
+    {
+      $match: { 
+        ID_Cliente: parseInt(req.params.id)
+      }
+    },
+    {
+      $lookup: {
+        from: "Cliente",
+        localField: "ID_Cliente",
+        foreignField: "_id",
+        as: "Cliente"
+      }
+    }
+  ]).toArray();
+  res.send(resultado);
+});
+
 export default reservasRouter;
