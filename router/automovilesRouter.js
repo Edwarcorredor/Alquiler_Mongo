@@ -35,5 +35,11 @@ automovilesRouter.get('/disponible', limitPet(), async (req, res) => {
     res.send(resultado);  
 });
 
+automovilesRouter.get('/capacidad', limitPet(), async (req,res) => {
+    let db = await conexion();
+    let resultado = await db.collection("Automovil").find({ Capacidad: { $gt: 5 } }, { _id: 0 }).toArray(); 
+    res.send(resultado);
+});
+
 
 export default automovilesRouter;
