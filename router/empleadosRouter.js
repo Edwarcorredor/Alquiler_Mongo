@@ -9,5 +9,11 @@ empleadosRouter.get('/vendedor', limitPet(), async (req, res) => {
     let resultado = await db.collection("Empleado").find({Cargo: "Vendedor"},{_id: 0}).toArray();
     res.send(resultado);
   });
+
+empleadosRouter.get('/cargos', limitPet(), async (req, res) => {
+  let db = await conexion();
+  let resultado = await db.collection("Empleado").find({ $or: [ { Cargo: "Gerente" }, { Cargo: "Asistente" } ]}, { _id: 0 }).toArray();
+  res.send(resultado);
+});
   
   export default empleadosRouter;
